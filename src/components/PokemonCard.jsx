@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 const PokemonCard = () => {
     const [pokemonName, setPokemonName] = useState('');
     const [inputName, setInputName] = useState('');
-    //const [pokemonSprite, setPokemonSprite] = useState('');
+    const [pokemonSprite, setPokemonSprite] = useState('');
 
     async function fetchData(pokemon) {
         try {
@@ -12,6 +12,7 @@ const PokemonCard = () => {
                 throw new Error("unable to fetch Pokemon!!!");
             }
             const pokemonData = await response.json();
+            setPokemonSprite(pokemonData.sprites.front_default);
             setPokemonName(pokemonData.name);
             console.log(pokemonData.name);
         }
@@ -34,6 +35,7 @@ const PokemonCard = () => {
         />
         <button onClick={() => fetchData(inputName)}>catch em</button>
         <h1>{pokemonName}</h1>
+        <img src={pokemonSprite} alt="Pokemon Sprite" style={{display: pokemonSprite ? 'block' : "none", width: "350px"}} />
     </div>
   )
 }
